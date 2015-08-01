@@ -1,45 +1,20 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Laravel</title>
+@extends('layouts.master')
 
-        <link href="//fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+@section('title', 'Home')
 
-        <style>
-            html, body {
-                height: 100%;
-            }
+@section('sidebar')
+<h1>Home</h1>
+@endsection
 
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
-
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 96px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="title">Laravel 5</div>
-            </div>
-        </div>
-    </body>
-</html>
+@section('content')
+    <p>{!! link_to_route('exercises.index', 'Go to all exercises') !!}</p>
+    @if(!Auth::guest())
+        @if (Auth::user()->exercises()->count() == 0)
+        There's not exercises.
+        <p>{!! link_to_route('exercises.create', 'Create new exercise') !!}</p>
+        @else
+        <p>{!! link_to_route('exercises.index', 'Go to yours exercises') !!}</p>
+        @endif
+    @else
+    @endif
+@stop
